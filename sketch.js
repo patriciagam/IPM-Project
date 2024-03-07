@@ -189,6 +189,7 @@ function mousePressed()
         else misses++;
         
         current_trial++;              // Move on to the next trial/target
+
         break;
       }
     }
