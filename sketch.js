@@ -6,8 +6,8 @@
 // p5.js reference: https://p5js.org/reference/
 
 // Database (CHANGE THESE!)
-const GROUP_NUMBER        = 0;      // Add your group number here as an integer (e.g., 2, 3)
-const RECORD_TO_FIREBASE  = false;  // Set to 'true' to record user results to Firebase
+const GROUP_NUMBER        = 46;      // Add your group number here as an integer (e.g., 2, 3)
+const RECORD_TO_FIREBASE  = true;  // Set to 'true' to record user results to Firebase
 
 // Pixel density and setup variables (DO NOT CHANGE!)
 let PPI, PPCM;
@@ -44,6 +44,8 @@ function setup()
 {
   createCanvas(700, 500);    // window size in px before we go into fullScreen()
   frameRate(60);             // frame rate (DO NOT CHANGE!)
+
+  sortTable();               // sorts the table alphabetically 
   
   randomizeTrials();         // randomize the trial order at the start of execution
   drawUserIDScreen();        // draws the user start-up screen (student ID and display size)
@@ -62,22 +64,56 @@ function draw()
     fill(color(255,255,255));
     textAlign(LEFT);
     text("Trial " + (current_trial + 1) + " of " + trials.length, 50, 20);
+
+    let change = false;
+    let curr_letter = 'a';
+    let first = true;
+    let last = false;
         
     // Draw all targets
-	for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw();
+	  for (var i = 0; i < legendas.getRowCount(); i++) 
+    {
     
-    // Draws the target label to be selected in the current trial. We include 
-    // a black rectangle behind the trial label for optimal contrast in case 
-    // you change the background colour of the sketch (DO NOT CHANGE THESE!)
-    fill(color(0,0,0));
-    rect(0, height - 40, width, 40);
- 
-    textFont("Arial", 20); 
-    fill(color(255,255,255)); 
-    textAlign(CENTER); 
-    text(legendas.getString(trials[current_trial],1), width/2, height - 20);
+      if (!areEqual(curr_letter, targets[i].getLabel()[1]))
+      {
+        first = true;
+        curr_letter = targets[i].getLabel()[1];
+        change++;
+      }
+
+      if (i == legendas.getRowCount() - 1 || 
+        !areEqual(targets[i].getLabel()[1], targets[i + 1].getLabel()[1])) last = true;
+
+      let colour;
+
+      if (change % 10 == 0) colour = color(101,24, 217);   // A -> purple
+      if (change % 10 == 1) colour = color(237, 191, 38);  // E -> yellow
+      if (change % 10 == 2) colour = color(54, 204, 209);  // H -> blue
+      if (change % 10 == 3) colour = color(237, 24, 49)    // I -> red
+      if (change % 10 == 4) colour = color(24, 237, 59)    // L -> green
+      if (change % 10 == 5) colour = color(243, 71, 255)   // N -> magenta
+      if (change % 10 == 6) colour = color(7, 38, 237)     // O -> deep blue
+      if (change % 10 == 7) colour = color(222, 222, 222)  // R -> white
+      if (change % 10 == 8) colour = color(255, 140, 0)    // U -> orange
+      if (change % 10 == 9) colour = color(255, 51, 153)   // Y -> pink
+
+      targets[i].draw(colour, first, last);
+      first = last = false;
+
+      // Draws the target label to be selected in the current trial. We include 
+      // a black rectangle behind the trial label for optimal contrast in case 
+      // you change the background colour of the sketch (DO NOT CHANGE THESE!)
+      fill(color(0,0,0));
+      rect(0, height - 40, width, 40);
+  
+      textFont("Arial", 20); 
+      fill(color(255,255,255)); 
+      textAlign(CENTER); 
+      text(legendas.getString(trials[current_trial],1), width/2, height - 20);
+    }
   }
 }
+
 
 // Print and save results at the end of 54 trials
 function printAndSavePerformance()
@@ -249,4 +285,27 @@ function windowResized()
     // Starts drawing targets immediately after we go fullscreen
     draw_targets = true;
   }
+}
+
+// Sorts the table alphabeticallt by the name of the city (second column)
+function sortTable()
+{
+  for (var i = 0; i < legendas.getRowCount(); i++)
+  {
+    for (var j = i + 1; j < legendas.getRowCount(); j++)
+    {
+      if (legendas.getString(i, 1).localeCompare(legendas.getString(j, 1)) > 0) {
+        let temp = legendas.getString(i, 1);
+        legendas.setString(i, 1, legendas.getString(j, 1));
+        legendas.setString(j, 1, temp);
+      }
+    }
+  }
+}
+
+// Compares two characters and returns true if they are equal
+function areEqual(char1, char2) 
+{
+  return char1 === char2 || (char1 === 'e' && char2 === 'é') || 
+    (char1 === 'é' && char2 === 'e');
 }
