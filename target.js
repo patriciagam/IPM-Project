@@ -40,8 +40,10 @@ class Target
     textAlign(CENTER);
 
     // Capitalizing the third letter
-    let label = this.label[0] + this.label[1].toUpperCase() + this.label[2].toUpperCase() + this.label.slice(3); 
-    text(label, this.x, this.y);
+    let label = this.label[0].toUpperCase() + this.label[1].toUpperCase() + this.label[2].toUpperCase();
+    text(this.label, this.x, this.y + 10);
+    textFont("Arial", 15);
+    text(label, this.x, this.y - 10);
 
     textFont("Arial", 16);
     fill(color(255, 255, 255));
