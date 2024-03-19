@@ -32,11 +32,19 @@ let targets               = [];
 const GRID_ROWS           = 8;      // We divide our 80 targets in a 8x10 grid
 const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
 
+// Sounds
+let correct_sound;
+let incorrect_sound;
+
 // Ensures important data is loaded before the program starts
 function preload()
 {
   // id,name,...
   legendas = loadTable('legendas.csv', 'csv', 'header');
+
+  // Load sounds
+  correct_sound = loadSound('correct.mp3');
+  incorrect_sound = loadSound('incorrect.mp3');
 }
 
 // Runs once at the start
@@ -185,9 +193,16 @@ function mousePressed()
       if (targets[i].clicked(mouseX, mouseY)) 
       {
         // Checks if it was the correct target
-        if (targets[i].id === trials[current_trial] + 1) hits++;
-        else misses++;
-        
+        if (targets[i].id === trials[current_trial] + 1) 
+        { 
+          hits++;
+          correct_sound.play();
+        }
+        else 
+        {
+          misses++;
+          incorrect_sound.play();
+        }  
         current_trial++;              // Move on to the next trial/target
 
         break;
