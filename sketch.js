@@ -79,7 +79,7 @@ function draw()
     textFont("Arial", 16);
     fill(color(255,255,255));
     textAlign(LEFT);
-    text("Trial " + (current_trial + 1) + " of " + trials.length, 30, 25);
+    text("Trial " + (current_trial + 1) + " of " + trials.length, 30, 28);
 
     // Attempt progress bar
     progressPos = 0;
@@ -94,6 +94,11 @@ function draw()
     {    
       targets[i].draw();
 
+      // Draw the category options
+      for (var j = legendas.getRowCount(); j < legendas.getRowCount() + 18; j++){
+        targets[j].draw();
+      }
+
       // Draws the target label to be selected in the current trial. We include 
       // a black rectangle behind the trial label for optimal contrast in case 
       // you change the background colour of the sketch (DO NOT CHANGE THESE!)
@@ -106,68 +111,6 @@ function draw()
       text(legendas.getString(trials[current_trial],1), width/2, height - 20);
     }
   }
-}
-
-function drawBox() {
-  textFont("Cambria", 36);
-  let horizontal_gap = targets[1].getX() - targets[0].getX();
-  let box_height = targets[0].getHeigth();
-
-  // Ba boxes
-  fill((color(101,24, 217)));
-  text('A', targets[0].getX() - targets[0].getWidth() * 4/5, targets[0].getY());
-  rect(targets[0].getX() - targets[0].getWidth() * 1.3 / 2, (targets[0].getY() - box_height / 2 ) * 0.9, horizontal_gap * 10, box_height, 10);
-  rect(targets[10].getX() - targets[10].getWidth(), (targets[10].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 11, box_height, 10);
-  rect(targets[20].getX() - targets[20].getWidth(), (targets[20].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 7, box_height, 10);
-
-  // Be boxes
-  fill((color(237, 191, 38)));
-  text('E', targets[27].getX() - targets[27].getWidth() * 4/5, targets[27].getY());
-  rect(targets[27].getX() - targets[27].getWidth() * 1.3 / 2, (targets[27].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 3, box_height, 10);
-  rect(targets[30].getX() - targets[30].getWidth(), (targets[30].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 8, box_height, 10);
-
-  // Bh boxes
-  fill((color(54, 204, 209)));
-  text('H', targets[38].getX() - targets[38].getWidth() * 4/5, targets[38].getY());
-  rect(targets[38].getX() - targets[38].getWidth() * 1.3 / 2, (targets[38].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 2, box_height, 10);
-  rect(targets[40].getX() - targets[40].getWidth(), (targets[40].getY() - box_height * 1.1 / 2 ) , horizontal_gap, box_height, 10);
-
-  // Bi boxes
-  fill((color(237, 24, 49)));
-  text('I', targets[41].getX() - targets[41].getWidth() * 4/5, targets[41].getY());
-  rect(targets[41].getX() - targets[41].getWidth() * 1.3 / 2, (targets[41].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
-
-  // Bl boxes
-  fill((color(24, 237, 59)));
-  text('L', targets[50].getX() - targets[50].getWidth() * 4/5, targets[50].getY());
-  rect(targets[50].getX() - targets[50].getWidth() * 1.3 / 2, (targets[50].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
-
-  // Bn boxes
-  fill((color(243, 71, 255)));
-  text('N', targets[51].getX() - targets[51].getWidth() * 4/5, targets[51].getY());
-  rect(targets[51].getX() - targets[51].getWidth() * 1.3 / 2, (targets[51].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
-
-  // Bo boxes
-  fill((color(7, 38, 237)));
-  text('O', targets[52].getX() - targets[52].getWidth() * 4/5, targets[52].getY());
-  rect(targets[52].getX() - targets[52].getWidth() * 1.3 / 2, (targets[52].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 3.8, box_height, 10);
-
-  // Br boxes
-  fill((color(222, 222, 222)));
-  text('R', targets[56].getX() - targets[56].getWidth() * 4/5, targets[56].getY());
-  rect(targets[56].getX() - targets[56].getWidth() * 1.3 / 2, (targets[56].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 6, box_height, 10);
-  rect(targets[60].getX() - targets[60].getWidth(), (targets[60].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
-
-  // Bu boxes
-  fill((color(255, 140, 0)));
-  text('U', targets[69].getX() - targets[69].getWidth() * 4/5, targets[69].getY());
-  rect(targets[69].getX() - targets[69].getWidth() * 1.3 / 2, (targets[69].getY() - box_height * 1.1 / 2 ) , horizontal_gap, box_height, 10);
-  rect(targets[70].getX() - targets[70].getWidth(), (targets[70].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
-
-  // By boxes
-  fill((color(255, 51, 153)));
-  text('Y', targets[79].getX() - targets[79].getWidth() * 4/5, targets[79].getY());
-  rect(targets[79].getX() - targets[79].getWidth() * 1.3 / 2, (targets[79].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
 }
 
 // Print and save results at the end of 54 trials
@@ -228,16 +171,16 @@ function printAndSavePerformance()
 }
 
 // Mouse button was pressed - lets test to see if hit was in the correct target
-function mousePressed() 
-{
+function mousePressed() {
   // Only look for mouse releases during the actual test
   // (i.e., during target selections)
   if (draw_targets) {
+    // Check if the user has clicked on a target
     for (var i = 0; i < legendas.getRowCount(); i++) {
       // Check if the user clicked over one of the targets
       if (targets[i].clicked(mouseX, mouseY)) {
         // Checks if it was the correct target
-        if (targets[i].id === trials[current_trial] + 1) { 
+        if (areEqual(targets[i].id,trials[current_trial] + 1)) { 
           correct_sound.play();
           results.push(true);
           hits++;
@@ -247,8 +190,18 @@ function mousePressed()
           misses++;
         }  
 
+        showAllTargets();
         current_trial++;              // Move on to the next trial/target
         break;
+      }
+    }
+
+    // Check if the user has clicked on a category
+    for (var j = legendas.getRowCount(); j < legendas.getRowCount() + 18; j++) {
+      if (targets[j].clicked(mouseX, mouseY)) {
+        showAllTargets();
+        letter = targets[j].getLetter();
+        showMatches(letter);
       }
     }
     
@@ -321,6 +274,22 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
       targets.push(target);
     }  
   }
+
+    // Creates category options (last letter)
+    let lastLetters = ['a', 'd','e', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'r', 's', 't', 'u', 'v', 'y', 'z'];
+    let category_size = target_size * 0.4; 
+    let category_h_gap = horizontal_gap / GRID_COLUMNS * 0.5
+    let category_v_gap = vertical_gap / (GRID_ROWS) * 21.5; 
+  
+    for (let i = 0; i < 18; i++) {
+      let category_x = PPCM + category_size * 5 + (category_h_gap + category_size) * i 
+      let category_y = (category_v_gap + category_size) * 8.6 + target_size / 2; 
+  
+      let category_id = i; 
+      let letter = lastLetters[i];
+      let category = new Category(category_x, category_y, category_size, category_id, letter);
+      targets.push(category);
+    }
 }
 
 // Is invoked when the canvas is resized (e.g., when we go fullscreen)
@@ -341,7 +310,7 @@ function windowResized()
     let screen_height  = display.height * 2.54;            // screen height
     let target_size    = 2;                                // sets the target size (will be converted to cm when passed to createTargets)
     let horizontal_gap = screen_width - target_size * GRID_COLUMNS;// empty space in cm across the x-axis (based on 10 targets per row)
-    let vertical_gap   = screen_height - target_size * GRID_ROWS;  // empty space in cm across the y-axis (based on 8 targets per column)
+    let vertical_gap   = screen_height - target_size * GRID_ROWS - 0.6;  // empty space in cm across the y-axis (based on 8 targets per column)
 
     // Creates and positions the UI targets according to the white space defined above (in cm!)
     // 80 represent some margins around the display (e.g., for text)
@@ -355,13 +324,73 @@ function windowResized()
   }
 }
 
+// Draws a rectangle behind cities with the same second letter
+function drawBox() {
+  textFont("Cambria", 36);
+  let horizontal_gap = targets[1].getX() - targets[0].getX();
+  let box_height = targets[0].getHeigth();
+
+  // Ba boxes
+  fill((color(101,24, 217)));
+  text('A', targets[0].getX() - targets[0].getWidth() * 4/5, targets[0].getY());
+  rect(targets[0].getX() - targets[0].getWidth() * 1.3 / 2, (targets[0].getY() - box_height / 2 ) * 0.9, horizontal_gap * 10, box_height, 10);
+  rect(targets[10].getX() - targets[10].getWidth(), (targets[10].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 11, box_height, 10);
+  rect(targets[20].getX() - targets[20].getWidth(), (targets[20].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 7, box_height, 10);
+
+  // Be boxes
+  fill((color(237, 191, 38)));
+  text('E', targets[27].getX() - targets[27].getWidth() * 4/5, targets[27].getY());
+  rect(targets[27].getX() - targets[27].getWidth() * 1.3 / 2, (targets[27].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 3, box_height, 10);
+  rect(targets[30].getX() - targets[30].getWidth(), (targets[30].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 8, box_height, 10);
+
+  // Bh boxes
+  fill((color(54, 204, 209)));
+  text('H', targets[38].getX() - targets[38].getWidth() * 4/5, targets[38].getY());
+  rect(targets[38].getX() - targets[38].getWidth() * 1.3 / 2, (targets[38].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 2, box_height, 10);
+  rect(targets[40].getX() - targets[40].getWidth(), (targets[40].getY() - box_height * 1.1 / 2 ) , horizontal_gap, box_height, 10);
+
+  // Bi boxes
+  fill((color(237, 24, 49)));
+  text('I', targets[41].getX() - targets[41].getWidth() * 4/5, targets[41].getY());
+  rect(targets[41].getX() - targets[41].getWidth() * 1.3 / 2, (targets[41].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
+
+  // Bl boxes
+  fill((color(24, 237, 59)));
+  text('L', targets[50].getX() - targets[50].getWidth() * 4/5, targets[50].getY());
+  rect(targets[50].getX() - targets[50].getWidth() * 1.3 / 2, (targets[50].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
+
+  // Bn boxes
+  fill((color(243, 71, 255)));
+  text('N', targets[51].getX() - targets[51].getWidth() * 4/5, targets[51].getY());
+  rect(targets[51].getX() - targets[51].getWidth() * 1.3 / 2, (targets[51].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
+
+  // Bo boxes
+  fill((color(7, 38, 237)));
+  text('O', targets[52].getX() - targets[52].getWidth() * 4/5, targets[52].getY());
+  rect(targets[52].getX() - targets[52].getWidth() * 1.3 / 2, (targets[52].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 3.8, box_height, 10);
+
+  // Br boxes
+  fill((color(200, 200, 200)));
+  text('R', targets[56].getX() - targets[56].getWidth() * 4/5, targets[56].getY());
+  rect(targets[56].getX() - targets[56].getWidth() * 1.3 / 2, (targets[56].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 6, box_height, 10);
+  rect(targets[60].getX() - targets[60].getWidth(), (targets[60].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
+
+  // Bu boxes
+  fill((color(255, 140, 0)));
+  text('U', targets[69].getX() - targets[69].getWidth() * 4/5, targets[69].getY());
+  rect(targets[69].getX() - targets[69].getWidth() * 1.3 / 2, (targets[69].getY() - box_height * 1.1 / 2 ) , horizontal_gap, box_height, 10);
+  rect(targets[70].getX() - targets[70].getWidth(), (targets[70].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
+
+  // By boxes
+  fill((color(255, 51, 153)));
+  text('Y', targets[79].getX() - targets[79].getWidth() * 4/5, targets[79].getY());
+  rect(targets[79].getX() - targets[79].getWidth() * 1.3 / 2, (targets[79].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
+}
+
 // Sorts the table alphabeticallt by the name of the city (second column)
-function sortTable()
-{
-  for (var i = 0; i < legendas.getRowCount(); i++)
-  {
-    for (var j = i + 1; j < legendas.getRowCount(); j++)
-    {
+function sortTable() {
+  for (var i = 0; i < legendas.getRowCount(); i++) {
+    for (var j = i + 1; j < legendas.getRowCount(); j++) {
       if (legendas.getString(i, 1).localeCompare(legendas.getString(j, 1)) > 0) {
         let temp = legendas.getString(i, 1);
         legendas.setString(i, 1, legendas.getString(j, 1));
@@ -371,9 +400,39 @@ function sortTable()
   }
 }
 
+function normalizeString(str) {
+    const accents = {
+        'á': 'a', 'Á': 'A',
+        'é': 'e', 'É': 'E',
+        'í': 'i', 'Í': 'I',
+        'ó': 'o', 'Ó': 'O',
+        'ú': 'u', 'Ú': 'U'
+        // Add more mappings as needed
+    };
+
+    let normalized = '';
+    for (let i = 0; i < str.length; i++) {
+        let char = str.charAt(i);
+        normalized += accents[char] || char;
+    }
+    return normalized;
+}
+
 // Compares two characters and returns true if they are equal
-function areEqual(char1, char2) 
-{
-  return char1 === char2 || (char1 === 'e' && char2 === 'é') || 
-    (char1 === 'é' && char2 === 'e');
+function areEqual(char1, char2) {
+  return char1 === char2 || 
+    (char1 === 'e' && char2 === 'é') || (char1 === 'é' && char2 === 'e') ||
+    (char1 === 'a' && char2 === 'á') || (char1 === 'á' && char2 === 'e');
+}
+
+function showMatches(letter) {
+  for (var i = 0; i < legendas.getRowCount(); i++) {
+    targets[i].hideTarget(letter);
+  }
+}
+
+function showAllTargets() { 
+  for (var i = 0; i < legendas.getRowCount(); i++) {
+    targets[i].showTarget();
+  }
 }
