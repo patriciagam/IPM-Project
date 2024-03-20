@@ -48,20 +48,38 @@ function preload()
   legendas = loadTable('legendas.csv', 'csv', 'header');
 
   // Load sounds
-  correct_sound = loadSound('correct.mp3');
-  incorrect_sound = loadSound('incorrect.mp3');
+  correct_sound = loadSound('assets/correct.mp3');
+  incorrect_sound = loadSound('assets/incorrect.mp3');
+
+  // Load image
+  img = loadImage('assets/example.png');
 }
 
 // Runs once at the start
 function setup()
 {
-  createCanvas(700, 500);    // window size in px before we go into fullScreen()
+  createCanvas(1280, 720);    // window size in px before we go into fullScreen()
   frameRate(60);             // frame rate (DO NOT CHANGE!)
 
   sortTable();               // sorts the table alphabetically 
   
   randomizeTrials();         // randomize the trial order at the start of execution
   drawUserIDScreen();        // draws the user start-up screen (student ID and display size)
+
+  textAlign(CENTER);
+  textSize(16);
+  fill(255);                 // set text fill color to white
+  text("Let's get ready and learn how to play!", width/2, height - 600);
+  text("1. The cities are organized in alphabetical order from top to bottom, changing the color of the box around the targets every time the SECOND letter changes.", width / 2, height - 560);
+  text("2. Near the bottom of the screen you can also filter the targets by the LAST letter, this is meant to help a little in case you are not used to this layout.", width / 2, height - 520);
+  text("3. The first 3 letters of each city are highlighted on the top of the target.", width / 2, height - 480);
+  textSize(18);
+  textStyle(BOLD);
+  text("Do you think you can beat the best score? TRY IT NOW!", width/2, height - 420);
+  imageMode(CENTER)
+  image(img, width / 2, height - 200, 750 , 415);
+
+
 }
 
 // Runs every frame and redraws the screen

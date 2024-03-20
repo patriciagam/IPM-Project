@@ -18,7 +18,7 @@ class Category {
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
     fill(color(255,255,255));
-    rect(this.x - this.width / 2, this.y - this.width / 2, this.width, this.width);
+    rect(this.x - this.width / 2, this.y - this.width / 2, this.width, this.width, 5);
     fill(color(0,0,0));
 
     switch(this.col) {
