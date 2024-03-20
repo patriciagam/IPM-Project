@@ -66,6 +66,8 @@ function draw()
   {     
     // The user is interacting with the 6x3 target grid
     background(color(0,0,0));        // sets background to black
+
+    drawBox();
     
     // Print trial count at the top left-corner of the canvas
     textFont("Arial", 16);
@@ -73,40 +75,10 @@ function draw()
     textAlign(LEFT);
     text("Trial " + (current_trial + 1) + " of " + trials.length, 50, 20);
 
-    let change = false;
-    let curr_letter = 'a';
-    let first = true;
-    let last = false;
-        
     // Draw all targets
 	  for (var i = 0; i < legendas.getRowCount(); i++) 
-    {
-    
-      if (!areEqual(curr_letter, targets[i].getLabel()[1]))
-      {
-        first = true;
-        curr_letter = targets[i].getLabel()[1];
-        change++;
-      }
-
-      if (i == legendas.getRowCount() - 1 || 
-        !areEqual(targets[i].getLabel()[1], targets[i + 1].getLabel()[1])) last = true;
-
-      let colour;
-
-      if (change % 10 == 0) colour = color(101,24, 217);   // A -> purple
-      if (change % 10 == 1) colour = color(237, 191, 38);  // E -> yellow
-      if (change % 10 == 2) colour = color(54, 204, 209);  // H -> blue
-      if (change % 10 == 3) colour = color(237, 24, 49)    // I -> red
-      if (change % 10 == 4) colour = color(24, 237, 59)    // L -> green
-      if (change % 10 == 5) colour = color(243, 71, 255)   // N -> magenta
-      if (change % 10 == 6) colour = color(7, 38, 237)     // O -> deep blue
-      if (change % 10 == 7) colour = color(222, 222, 222)  // R -> white
-      if (change % 10 == 8) colour = color(255, 140, 0)    // U -> orange
-      if (change % 10 == 9) colour = color(255, 51, 153)   // Y -> pink
-
-      targets[i].draw(colour, first, last);
-      first = last = false;
+    {    
+      targets[i].draw();
 
       // Draws the target label to be selected in the current trial. We include 
       // a black rectangle behind the trial label for optimal contrast in case 
@@ -122,6 +94,67 @@ function draw()
   }
 }
 
+function drawBox() {
+  textFont("Cambria", 36);
+  let horizontal_gap = targets[1].getX() - targets[0].getX();
+  let box_height = targets[0].getHeigth();
+
+  // Ba boxes
+  fill((color(101,24, 217)));
+  text('A', targets[0].getX() - targets[0].getWidth() * 4/5, targets[0].getY());
+  rect(targets[0].getX() - targets[0].getWidth() * 1.3 / 2, (targets[0].getY() - box_height / 2 ) * 0.9, horizontal_gap * 10, box_height, 10);
+  rect(targets[10].getX() - targets[10].getWidth(), (targets[10].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 11, box_height, 10);
+  rect(targets[20].getX() - targets[20].getWidth(), (targets[20].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 7, box_height, 10);
+
+  // Be boxes
+  fill((color(237, 191, 38)));
+  text('E', targets[27].getX() - targets[27].getWidth() * 4/5, targets[27].getY());
+  rect(targets[27].getX() - targets[27].getWidth() * 1.3 / 2, (targets[27].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 3, box_height, 10);
+  rect(targets[30].getX() - targets[30].getWidth(), (targets[30].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 8, box_height, 10);
+
+  // Bh boxes
+  fill((color(54, 204, 209)));
+  text('H', targets[38].getX() - targets[38].getWidth() * 4/5, targets[38].getY());
+  rect(targets[38].getX() - targets[38].getWidth() * 1.3 / 2, (targets[38].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 2, box_height, 10);
+  rect(targets[40].getX() - targets[40].getWidth(), (targets[40].getY() - box_height * 1.1 / 2 ) , horizontal_gap, box_height, 10);
+
+  // Bi boxes
+  fill((color(237, 24, 49)));
+  text('I', targets[41].getX() - targets[41].getWidth() * 4/5, targets[41].getY());
+  rect(targets[41].getX() - targets[41].getWidth() * 1.3 / 2, (targets[41].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
+
+  // Bl boxes
+  fill((color(24, 237, 59)));
+  text('L', targets[50].getX() - targets[50].getWidth() * 4/5, targets[50].getY());
+  rect(targets[50].getX() - targets[50].getWidth() * 1.3 / 2, (targets[50].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
+
+  // Bn boxes
+  fill((color(243, 71, 255)));
+  text('N', targets[51].getX() - targets[51].getWidth() * 4/5, targets[51].getY());
+  rect(targets[51].getX() - targets[51].getWidth() * 1.3 / 2, (targets[51].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
+
+  // Bo boxes
+  fill((color(7, 38, 237)));
+  text('O', targets[52].getX() - targets[52].getWidth() * 4/5, targets[52].getY());
+  rect(targets[52].getX() - targets[52].getWidth() * 1.3 / 2, (targets[52].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 3.8, box_height, 10);
+
+  // Br boxes
+  fill((color(222, 222, 222)));
+  text('R', targets[56].getX() - targets[56].getWidth() * 4/5, targets[56].getY());
+  rect(targets[56].getX() - targets[56].getWidth() * 1.3 / 2, (targets[56].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 6, box_height, 10);
+  rect(targets[60].getX() - targets[60].getWidth(), (targets[60].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
+
+  // Bu boxes
+  fill((color(255, 140, 0)));
+  text('U', targets[69].getX() - targets[69].getWidth() * 4/5, targets[69].getY());
+  rect(targets[69].getX() - targets[69].getWidth() * 1.3 / 2, (targets[69].getY() - box_height * 1.1 / 2 ) , horizontal_gap, box_height, 10);
+  rect(targets[70].getX() - targets[70].getWidth(), (targets[70].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 9, box_height, 10);
+
+  // By boxes
+  fill((color(255, 51, 153)));
+  text('Y', targets[79].getX() - targets[79].getWidth() * 4/5, targets[79].getY());
+  rect(targets[79].getX() - targets[79].getWidth() * 1.3 / 2, (targets[79].getY() - box_height * 1.1 / 2 ) , horizontal_gap * 0.8, box_height, 10);
+}
 
 // Print and save results at the end of 54 trials
 function printAndSavePerformance()
@@ -185,41 +218,33 @@ function mousePressed()
 {
   // Only look for mouse releases during the actual test
   // (i.e., during target selections)
-  if (draw_targets)
-  {
-    for (var i = 0; i < legendas.getRowCount(); i++)
-    {
+  if (draw_targets) {
+    for (var i = 0; i < legendas.getRowCount(); i++) {
       // Check if the user clicked over one of the targets
-      if (targets[i].clicked(mouseX, mouseY)) 
-      {
+      if (targets[i].clicked(mouseX, mouseY)) {
         // Checks if it was the correct target
-        if (targets[i].id === trials[current_trial] + 1) 
-        { 
-          hits++;
+        if (targets[i].id === trials[current_trial] + 1) { 
           correct_sound.play();
-        }
-        else 
-        {
-          misses++;
+          hits++;
+        } else {
           incorrect_sound.play();
+          misses++;
         }  
-        current_trial++;              // Move on to the next trial/target
 
+        current_trial++;              // Move on to the next trial/target
         break;
       }
     }
     
     // Check if the user has completed all trials
-    if (current_trial === NUM_OF_TRIALS)
-    {
+    if (current_trial === NUM_OF_TRIALS) {
       testEndTime = millis();
       draw_targets = false;          // Stop showing targets and the user performance results
       printAndSavePerformance();     // Print the user's results on-screen and send these to the DB
       attempt++;                      
       
       // If there's an attempt to go create a button to start this
-      if (attempt < 2)
-      {
+      if (attempt < 2) {
         continue_button = createButton('START 2ND ATTEMPT');
         continue_button.mouseReleased(continueTest);
         continue_button.position(width/2 - continue_button.size().width/2, height/2 - continue_button.size().height/2);
@@ -230,7 +255,7 @@ function mousePressed()
   }
 }
 
-// Evoked after the user starts its second (and last) attempt
+// Evoked after the user starts its second (and last)
 function continueTest()
 {
   // Re-randomize the trial order
@@ -242,6 +267,11 @@ function continueTest()
   
   current_trial = 0;
   continue_button.remove();
+
+  // Resets the state of all targets
+  for (var i = 0; i < legendas.getRowCount(); i++) {
+    targets[i].selected = false;
+  }
   
   // Shows the targets again
   draw_targets = true; 
