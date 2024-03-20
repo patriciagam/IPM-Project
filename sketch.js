@@ -400,29 +400,11 @@ function sortTable() {
   }
 }
 
-function normalizeString(str) {
-    const accents = {
-        'á': 'a', 'Á': 'A',
-        'é': 'e', 'É': 'E',
-        'í': 'i', 'Í': 'I',
-        'ó': 'o', 'Ó': 'O',
-        'ú': 'u', 'Ú': 'U'
-        // Add more mappings as needed
-    };
-
-    let normalized = '';
-    for (let i = 0; i < str.length; i++) {
-        let char = str.charAt(i);
-        normalized += accents[char] || char;
-    }
-    return normalized;
-}
-
 // Compares two characters and returns true if they are equal
 function areEqual(char1, char2) {
   return char1 === char2 || 
     (char1 === 'e' && char2 === 'é') || (char1 === 'é' && char2 === 'e') ||
-    (char1 === 'a' && char2 === 'á') || (char1 === 'á' && char2 === 'e');
+    (char1 === 'a' && char2 === 'á') || (char1 === 'á' && char2 === 'a');
 }
 
 function showMatches(letter) {
