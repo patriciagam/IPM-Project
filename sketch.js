@@ -283,7 +283,7 @@ function createTargets(target_size, horizontal_gap, vertical_gap)
   
     for (let i = 0; i < 18; i++) {
       let category_x = PPCM + category_size * 5 + (category_h_gap + category_size) * i 
-      let category_y = (category_v_gap + category_size) * 8.6 + target_size / 2; 
+      let category_y = targets[70].getY() + targets[70].getHeigth()* 0.65
   
       let category_id = i; 
       let letter = lastLetters[i];
