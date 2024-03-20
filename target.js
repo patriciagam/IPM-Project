@@ -33,13 +33,18 @@ class Target
   }
 
   // Draws the target and its label
-  draw()
-  { 
+  draw() { 
     // Draw target
-    fill(color(0,0,0));                 
+    fill(color(0,0,0));      
+    if (this.selected) {
+      stroke(255); // Set stroke color to white
+      strokeWeight(3); // Set stroke thickness
+    } 
     rect(this.x - this.width * 1.2 / 2, this.y - this.width / 2, 
       this.width * 1.2, this.width * 0.85, 10);
 
+    noStroke();
+  
     // Capitalizing the third letter
     let label = this.label[0].toUpperCase() + this.label[1].toUpperCase() + this.label[2].toUpperCase();
     // Draw first three letters of label
