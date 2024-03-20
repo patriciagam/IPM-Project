@@ -32,6 +32,11 @@ let targets               = [];
 const GRID_ROWS           = 8;      // We divide our 80 targets in a 8x10 grid
 const GRID_COLUMNS        = 10;     // We divide our 80 targets in a 8x10 grid
 
+// Attempt progress bar
+let results = []; 
+let progressPos = 0;
+let progressInc = 0;               // ajusted in windowResized()
+
 // Sounds
 let correct_sound;
 let incorrect_sound;
@@ -67,13 +72,22 @@ function draw()
     // The user is interacting with the 6x3 target grid
     background(color(0,0,0));        // sets background to black
 
+    // Draws rectangles for the cities with the same second letter
     drawBox();
-    
+  
     // Print trial count at the top left-corner of the canvas
     textFont("Arial", 16);
     fill(color(255,255,255));
     textAlign(LEFT);
-    text("Trial " + (current_trial + 1) + " of " + trials.length, 50, 20);
+    text("Trial " + (current_trial + 1) + " of " + trials.length, 30, 25);
+
+    // Attempt progress bar
+    progressPos = 0;
+    for (let i = 0; i < results.length; i++) {
+      fill(results[i] ? color(60, 200, 60) : color(200, 20, 20));
+      rect(progressPos, 0, progressInc, 12, 5);
+      progressPos += progressInc;
+    }
 
     // Draw all targets
 	  for (var i = 0; i < legendas.getRowCount(); i++) 
@@ -225,9 +239,11 @@ function mousePressed()
         // Checks if it was the correct target
         if (targets[i].id === trials[current_trial] + 1) { 
           correct_sound.play();
+          results.push(true);
           hits++;
         } else {
           incorrect_sound.play();
+          results.push(false);
           misses++;
         }  
 
@@ -268,11 +284,14 @@ function continueTest()
   current_trial = 0;
   continue_button.remove();
 
+  // Resets the results array
+  results = [];
+
   // Resets the state of all targets
   for (var i = 0; i < legendas.getRowCount(); i++) {
     targets[i].selected = false;
   }
-  
+
   // Shows the targets again
   draw_targets = true; 
 }
@@ -330,6 +349,9 @@ function windowResized()
 
     // Starts drawing targets immediately after we go fullscreen
     draw_targets = true;
+
+    // Adjusts the progress bar increment
+    progressInc = width / NUM_OF_TRIALS
   }
 }
 
