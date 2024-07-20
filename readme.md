@@ -1,7 +1,7 @@
 # BakeOff 1
 
 ## Protótipo
-[Visualizar Protótipo do BakeOff 1](https://www.figma.com/proto/84MRwVZJDAWMb27GhL4jHW/Quizzes-Tutor?t=DU2nPGcrl1I1ptKt-1&node-id=157-1651&starting-point-node-id=157%3A1651), um protótipo interativo para o redesign da interface do usuário do site [Quizzes-Tutor](https://quizzes-tutor.tecnico.ulisboa.pt/) do IST.
+[Visualizar Protótipo do BakeOff 1](https://www.figma.com/proto/84MRwVZJDAWMb27GhL4jHW/Quizzes-Tutor?t=DU2nPGcrl1I1ptKt-1&node-id=157-1651&starting-point-node-id=157%3A1651), um protótipo interativo para o redesign da interface do utilizador do site [Quizzes-Tutor](https://quizzes-tutor.tecnico.ulisboa.pt/) do IST.
 
 ## Objetivo
 O objetivo do BakeOff era criar uma interface móvel que suportasse as funcionalidades do sistema Quizzes-Tutor.
